@@ -26,6 +26,7 @@ agent = SelfDestruct::Agent.new(opts)
 Self Destruct also has the concept of a grace period -- the time to wait after the first incrementing of successes or failures to trigger the failure function should it be necessary.  The grace period is overridable.  (See below)
 
 # Customize 
+You can customize the behavior of the Self Destruct agent by passing in an `opts` hash.  The following keys are valid:
 
 | Feature         | Default | Key             | Description                                                                               |
 |-----------------|---------|-----------------|-------------------------------------------------------------------------------------------|
