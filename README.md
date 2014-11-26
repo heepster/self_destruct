@@ -27,4 +27,10 @@ Self Destruct also has the concept of a grace period -- the time to wait after t
 
 # Customize 
 
-
+| Feature         | Default | Key             | Description                                                                               |
+|-----------------|---------|-----------------|-------------------------------------------------------------------------------------------|
+| Grace Period    | 60 (s)  | grace_period    | Time to wait before triggering failure function (if needed)                               |
+| Min Attempts    | 20      | min_attempts    | Minimum number of (successes + failures) before triggering a failure function (if needed) |
+| Failure Lambda  | abort   | failure_lambda  | What to do when ratio of successes to failures falls below threshold                      |
+| Ratio Threshold | 5       | ratio_threshold | The ratio of successes to failures                                                        |
+| Max Count       | 1000000 | max_count       | The number of (successes + failures) to reach before resetting counts                     |
