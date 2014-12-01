@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'self_destruct'
-  s.version     = '1.0.0'
+  s.version     = '1.1.0'
   s.date        = '2010-11-25'
   s.description = "Adds the ability for ruby processes to die after some conditions are met."
   s.summary     = "Adds the ability for ruby processes to die after some conditions are met."
