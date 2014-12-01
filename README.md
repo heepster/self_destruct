@@ -16,12 +16,14 @@ agent = SelfDestruct::Agent.new
 100.times do {agent.inc_failures }
 ~~~
 
-Because the ratio of successes to failures is below the threshold (the default is 5), this will trigger the default failure function, which is an `abort`.  You can pass in your own failure function as a lambda: 
+Because the ratio of successes to failures is below the threshold (the default is 5), this will trigger the default failure function, which is an `abort`.  You can pass in your own failure function as a Proc: 
 
 ~~~ruby
-opts  = { failure_lambda: lambda { <do something> } }
+opts  = { failure_func: Proc.new { |x, y| <do something> } } # Where x = number of successes, and y = number of failures
 agent = SelfDestruct::Agent.new(opts)
 ~~~
+
+* Be sure to use a Proc and not a lambda, as SelfDestruct will call your function and pass in arguments.  If your lambda doesn't have arguments, Ruby will raise an exception, where as with a Proc it will not.   
 
 Self Destruct also has the concept of a grace period -- the time to wait after the first incrementing of successes or failures to trigger the failure function should it be necessary.  The grace period is overridable.  (See below)
 
@@ -32,6 +34,6 @@ You can customize the behavior of the Self Destruct agent by passing in an `opts
 |-----------------|---------|-----------------|-------------------------------------------------------------------------------------------|
 | Grace Period    | 60 (s)  | grace_period    | Time to wait before triggering failure function (if needed)                               |
 | Min Attempts    | 20      | min_attempts    | Minimum number of (successes + failures) before triggering a failure function (if needed) |
-| Failure Lambda  | abort   | failure_lambda  | What to do when ratio of successes to failures falls below threshold                      |
+| Failure Func    | abort   | failure_func    | What to do when ratio of successes to failures falls below threshold                      |
 | Ratio Threshold | 5       | ratio_threshold | The ratio of successes to failures                                                        |
 | Max Count       | 1000000 | max_count       | The number of (successes + failures) to reach before resetting counts                     |

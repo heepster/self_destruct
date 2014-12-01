@@ -54,7 +54,7 @@ describe SelfDestruct do
 
   it "should call user specified lambda" do
     word  = "die"
-    opts  = { grace_period: 0, failure_lambda: lambda { return word } }
+    opts  = { grace_period: 0, failure_func: Proc.new { word } }
     agent = Agent.new(opts) 
     res   = agent.send(:do_failure)
     expect(res).to eq(word)

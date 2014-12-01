@@ -5,7 +5,7 @@ module SelfDestruct
     DEFAULT_RATIO_THRESHOLD = 5
     DEFAULT_GRACE_PERIOD    = 60 # in seconds
     DEFAULT_MIN_ATTEMPTS    = 20
-    DEFAULT_FAILURE_LAMBDA  = lambda { abort "Too many failures" }
+    DEFAULT_FAILURE_FUNC    = Proc.new { |successes, failures| abort "Aborting because too many failures.  Successes: #{successes}.  Failures: #{failures}" }
     DEFAULT_MAX_COUNT       = 1000000
 
     def initialize(opts = {})
@@ -15,7 +15,7 @@ module SelfDestruct
       @ratio_threshold = opts[:ratio_threshold] || DEFAULT_RATIO_THRESHOLD
       @grace_period    = opts[:grace_period]    || DEFAULT_GRACE_PERIOD
       @min_attempts    = opts[:min_attempts]    || DEFAULT_MIN_ATTEMPTS
-      @failure_func    = opts[:failure_lambda]  || DEFAULT_FAILURE_LAMBDA
+      @failure_func    = opts[:failure_func]    || DEFAULT_FAILURE_FUNC
       @max_count       = opts[:max_count]       || DEFAULT_MAX_COUNT
     end
 
@@ -71,7 +71,7 @@ module SelfDestruct
     end
 
     def do_failure
-      @failure_func.call
+      @failure_func.call(@success_count, @failure_count)
     end
 
   end
