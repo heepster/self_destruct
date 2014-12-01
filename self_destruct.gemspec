@@ -3,6 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '1.0.0'
   s.date        = '2010-11-25'
   s.description = "Adds the ability for ruby processes to die after some conditions are met."
+  s.summary     = "Adds the ability for ruby processes to die after some conditions are met."
   s.authors     = ["Kevin Huynh"]
   s.email       = 'me@khuynh.info'
   s.files       = ['lib/self_destruct.rb']

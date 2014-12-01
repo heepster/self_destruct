@@ -10,18 +10,18 @@ gem install self_destruct
 
 # Usage
 
-```
+~~~ruby
 agent = SelfDestruct::Agent.new
 10.times do { agent.inc_successes }
 100.times do {agent.inc_failures }
-```
+~~~
 
 Because the ratio of successes to failures is below the threshold (the default is 5), this will trigger the default failure function, which is an `abort`.  You can pass in your own failure function as a lambda: 
 
-```
+~~~ruby
 opts  = { failure_lambda: lambda { <do something> } }
 agent = SelfDestruct::Agent.new(opts)
-```
+~~~
 
 Self Destruct also has the concept of a grace period -- the time to wait after the first incrementing of successes or failures to trigger the failure function should it be necessary.  The grace period is overridable.  (See below)
 
